@@ -1,0 +1,26 @@
+body {
+    background: #e5e5e5;
+}
+
+.block {
+    margin-top: 80px;
+
+    &__left {
+        background: #f4f6f8;
+        min-height: 580px;
+        width: 35%;
+        padding: 40px 30px;
+        position: relative;
+    }
+
+    &__right {
+        width: 65%;
+        background: #fff;
+    }
+    &__wrap {
+        max-width: 998px;
+        margin: 0 auto;
+        display: flex;
+        padding-bottom: 50px;
+    }
+}
