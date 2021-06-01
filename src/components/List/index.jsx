@@ -1,9 +1,15 @@
 import React from 'react';
 import './List.scss';
 import classNames from 'classnames';
+import axios from "axios";
 
 function List({items,addlist,clickPopup,isRemove,onRemovable}){
-// console.log(items)
+    const removeList = item => {
+        axios.delete('http://localhost:3001/lists/'+item.id)
+            .then(
+                onRemovable(item.id)
+            )
+    }
     return (
         <div onClick={clickPopup} className='list__item ' >
             {items.map(item => (
@@ -13,7 +19,7 @@ function List({items,addlist,clickPopup,isRemove,onRemovable}){
 
                         {item.icon ? <div className='icon'>{item.icon}</div> : <div className='icon'><i className='list__icon' style={{background: item.color }} ></i></div>}
                         {item.name}
-                        {isRemove && <div onClick={() => onRemovable(item)} className='list__remove'>&#10006;</div>}
+                        {isRemove && <div onClick={() => removeList(item)} className='list__remove'>&#10006;</div>}
                     </div>
                 </div>
             ))}

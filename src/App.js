@@ -1,31 +1,41 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss';
 import List from "./components/List/";
 import AddList from "./components/AddList";
 import DB from '../src/db.json';
-
+import Tasks from './components/Tasks';
+import axios from "axios";
 
 function App() {
 
-		DB.lists.map(item=>{
-			return 	 item.color =  DB.colors.filter(color => color.id === item.colorId)[0].hex
-
+	DB.lists.map(item=>{
+		return 	 item.color =  DB.colors.filter(color => color.id === item.colorId)[0].hex
+	})
+	const [list,addList] = useState(null)
+	const [color,addColor] = useState(null)
+	useEffect(()=>{
+		axios.get('http://localhost:3001/lists?_expand=color').then(({data}) => {
+			addList(data)
 		})
+		// axios.get('http://localhost:3001/color').then(({data}) => {
+		// 	addColor(data)
+		// })
+	})
 
 
-	const [list,addList] = useState(DB.lists)
 
-const onAdd = obj => {
- 	const newList = [
-		...list,
-		obj
-	];
+	const onAdd = obj => {
+		const newList = [
+			...list,
+			obj
+		];
 
-	addList(newList)
-}
+		addList(newList)
+	}
 
-let onRemovable = item =>{
-
+	let onRemovable = id =>{
+		const  newList = list.filter(item => item.id !== id)
+		addList(newList)
 	}
 	return (
 		<div className="block">
@@ -51,13 +61,13 @@ let onRemovable = item =>{
 						 />
 
 					<div className="list__item--top">
-						<List
+						{list &&  <List
 							items={
 								list
 							}
 							isRemove
 							onRemovable={onRemovable}
-						/>
+						/>}
 					</div>
 
 					<div className='list__item--top'>
@@ -68,7 +78,9 @@ let onRemovable = item =>{
 					</div>
 				</div>
 
-				<div className="block__right"></div>
+				<div className="block__right task">
+					<Tasks/>
+				</div>
 			</div>
 
 		</div>

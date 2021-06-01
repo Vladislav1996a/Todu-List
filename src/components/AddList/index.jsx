@@ -1,21 +1,33 @@
-import {React, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import './AddList.scss';
 import List from "../List/";
 import classNames from 'classnames';
-
+import axios from 'axios';
 
 function  AddList({colors, onAddList}) {
    const [showPopup, setShow] = useState(false);
-   const [activeItem, setActive] = useState(colors[0].id);
+   const [activeItem, setActive] = useState(null);
    const [valueInput, setValue] = useState('')
+    useEffect(()=>{
+        if(Array.isArray(colors)){
+            setActive(colors[0].id)
+        }
+    },[colors])
    const addList = () => {
-       onAddList({id:Math.random(), name:valueInput, color:colors.filter(color => color.id ===  activeItem )[0].hex})
-       // axios.post('http://localhost:3001/lists',{
-       //     name:valueInput, colorId:5
-       // }).than(({data}) =>{
-       //     console.log(data)
-       // })
+
+       axios.post('http://localhost:3001/lists',{
+           name:valueInput, colorId:activeItem
+       }).then(({data}) =>{
+          const color = colors.filter(color => color.id ===  activeItem )[0].hex;
+          const listObj = {
+              ...data,color:color
+          }
+
+           onAddList(listObj)
+       })
    }
+
+
 
 
 
