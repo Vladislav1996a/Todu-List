@@ -16,11 +16,11 @@ function App() {
 	useEffect(()=>{
 		axios.get('http://localhost:3001/lists?_expand=color').then(({data}) => {
 			addList(data)
+		});
+		axios.get('http://localhost:3001/colors').then(({data}) => {
+			addColor(data)
 		})
-		// axios.get('http://localhost:3001/color').then(({data}) => {
-		// 	addColor(data)
-		// })
-	})
+	},[])
 
 
 
@@ -72,7 +72,7 @@ function App() {
 
 					<div className='list__item--top'>
 						<AddList
-							colors={DB.colors}
+							colors={color}
 							onAddList = {onAdd}
 						/>
 					</div>
