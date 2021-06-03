@@ -20,9 +20,11 @@ function  AddList({colors, onAddList}) {
        }).then(({data}) =>{
           const color = colors.filter(color => color.id ===  activeItem )[0];
           const listObj = {
-              ...data,color:color,task:data.task
+              ...data,color:color
           }
-
+          setValue('');
+          setActive(colors[0].id)
+         
            onAddList(listObj)
        })
        setShow(false)

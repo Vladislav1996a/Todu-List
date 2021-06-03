@@ -1,17 +1,29 @@
 import {React} from 'react';
 import './task.scss';
 import edit from '../../assets/img/int.svg';
-function Tasks({list}) {
-   
+import axios from 'axios';
+function Tasks({list,changeTitle}) {
+   const changeTitletask =()=>{
+       let newName = window.prompt('Изменить название категории',list.name);
+      if(newName){
+        changeTitle(newName,list.id)
+        axios.patch('http://localhost:3001/lists/' + list.id,{
+            name: newName
+        })
+        .catch (()=>{
+            alert('не удалось изменить заголовок')
+        })
+      }
+   }
     return (
         <div className='task'>
             <h2 className='task__title'>
                {list.name}
-                <img src={edit} alt="edit"/>
+                <img onClick={changeTitletask} src={edit} alt="edit"/>
             </h2>
 
             <div  className="task__wrap">
-                {list.tasks.map(item => (
+                {list.tasks && list.tasks.map(item => (
                     
                     <div key={item.id} className="checkbox">
                       

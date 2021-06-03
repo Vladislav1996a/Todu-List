@@ -20,22 +20,33 @@ function App() {
 		axios.get('http://localhost:3001/colors').then(({data}) => {
 			addColor(data)
 		})
-	},[])
-
-
-
+	},[]);
+	
 	const onAdd = obj => {
 		const newList = [
 			...list,
 			obj
 		];
-		console.log(list,obj)
+		
 		addList(newList)
 	}
 
-	let onRemovable = id =>{
+	const onRemovable = (id) => {
 		const  newList = list.filter(item => item.id !== id)
+	
 		addList(newList)
+		
+	}
+
+	const changeTitle = (name,id) =>{
+		const newList =	list.map(item =>{
+			if(item.id === id){
+				item.name = name
+			}
+			return item;
+		})
+		addList(newList)
+		
 	}
 	return (
 		<div className="block">
@@ -86,6 +97,7 @@ function App() {
 						list = {
 							task
 						}
+						changeTitle={changeTitle}
 					
 					/>}
 				</div>
