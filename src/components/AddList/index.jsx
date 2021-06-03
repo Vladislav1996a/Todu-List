@@ -15,16 +15,17 @@ function  AddList({colors, onAddList}) {
     },[colors])
    const addList = () => {
 
-       axios.post('http://localhost:3001/lists',{
+       axios.post('http://localhost:3001/lists?_expand=color&_embed=tasks',{
            name:valueInput, colorId:activeItem
        }).then(({data}) =>{
-          const color = colors.filter(color => color.id ===  activeItem )[0].hex;
+          const color = colors.filter(color => color.id ===  activeItem )[0];
           const listObj = {
-              ...data,color:color
+              ...data,color:color,task:data.task
           }
 
            onAddList(listObj)
        })
+       setShow(false)
    }
 
 

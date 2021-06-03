@@ -2,19 +2,19 @@ import React, {useEffect, useState} from 'react';
 import './App.scss';
 import List from "./components/List/";
 import AddList from "./components/AddList";
-import DB from '../src/db.json';
+
 import Tasks from './components/Tasks';
 import axios from "axios";
 
 function App() {
 
-	DB.lists.map(item=>{
-		return 	 item.color =  DB.colors.filter(color => color.id === item.colorId)[0].hex
-	})
+	
 	const [list,addList] = useState(null)
 	const [color,addColor] = useState(null)
+	const [task, addTask] = useState(null)
+	
 	useEffect(()=>{
-		axios.get('http://localhost:3001/lists?_expand=color').then(({data}) => {
+		axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data}) => {
 			addList(data)
 		});
 		axios.get('http://localhost:3001/colors').then(({data}) => {
@@ -29,7 +29,7 @@ function App() {
 			...list,
 			obj
 		];
-
+		console.log(list,obj)
 		addList(newList)
 	}
 
@@ -65,21 +65,29 @@ function App() {
 							items={
 								list
 							}
+							onClickItem={item =>{
+								addTask(item)
+							}}
 							isRemove
 							onRemovable={onRemovable}
 						/>}
 					</div>
 
 					<div className='list__item--top'>
-						<AddList
+						{color && <AddList
 							colors={color}
 							onAddList = {onAdd}
-						/>
+						/>}
 					</div>
 				</div>
 
 				<div className="block__right task">
-					<Tasks/>
+					{task && <Tasks
+						list = {
+							task
+						}
+					
+					/>}
 				</div>
 			</div>
 
