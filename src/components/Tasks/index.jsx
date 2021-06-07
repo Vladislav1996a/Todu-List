@@ -4,7 +4,7 @@ import edit from '../../assets/img/int.svg';
 import axios from 'axios';
 import AddTasksForm from './AddTaskForm';
 
-function Tasks({list,changeTitle}) {
+function Tasks({list,changeTitle,addTasks}) {
    const changeTitletask =()=>{
        let newName = window.prompt('Изменить название категории',list.name);
       if(newName){
@@ -17,19 +17,7 @@ function Tasks({list,changeTitle}) {
         })
       }
    }
-   const addTasks = (value) =>{
-    axios.post('http://localhost:3001/tasks/',
-        {
-            
-            listId: list.id,
-            text: value,
-            completed: false
-          }
-    )
-    
-    
-    
-   }
+  
     return (
         <div className='task'>
             <h2 className='task__title' style={{color:list.color.hex}}>
@@ -59,7 +47,9 @@ function Tasks({list,changeTitle}) {
                addTasks = {
                 addTasks
                }
-            
+               list = {
+                list
+               }
             />
         </div>
     )

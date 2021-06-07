@@ -1,7 +1,7 @@
 import {React, useState} from 'react';
 
 
-function AddTasksForm({addTasks}) {
+function AddTasksForm({addTasks,list}) {
     const [showForm, setShowForm] = useState(false);
     const [inputValue, setInputValue] = useState('')
     const toggleForm = () => {
@@ -38,7 +38,7 @@ function AddTasksForm({addTasks}) {
                 </div>) : (
                     <div className='add-task__form'>
                         <input value={inputValue} onChange={ e =>{setInputValue(e.target.value)}} className='add-task__input' type="text" />
-                        <div onClick={()=>addTasks(inputValue)} className="add-task__button">Добавить задачу</div>
+                        <div onClick={()=>addTasks(inputValue,list.id)} className="add-task__button">Добавить задачу</div>
                         <div onClick={toggleForm} className="add-task__button add-task__button--cancel">Отмена</div>
                     </div>
                 )

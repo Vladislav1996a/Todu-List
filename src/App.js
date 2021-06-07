@@ -48,6 +48,26 @@ function App() {
 		addList(newList)
 		
 	}
+
+	const addTasks = (value,id) =>{
+		let obj = {
+				
+			listId: id,
+			text: value,
+			completed: false
+		  }
+		axios.post('http://localhost:3001/tasks/',obj)
+		const newList = list.map(item =>{
+			if(item.id === id){
+				item.tasks = [...item.tasks,obj]
+				
+			}
+			return item;
+		})
+		addList(newList)
+		
+	   }
+
 	return (
 		<div className="block">
 			<div className="block__wrap">
@@ -101,7 +121,9 @@ function App() {
 							task
 						}
 						changeTitle={changeTitle}
-					
+						addTasks = {
+							addTasks
+						}
 					/>}
 				</div>
 			</div>
