@@ -31,9 +31,6 @@ function  AddList({colors, onAddList}) {
    }
 
 
-
-
-
     return (
         <div>
             <List

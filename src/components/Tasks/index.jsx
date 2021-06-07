@@ -2,6 +2,8 @@ import {React} from 'react';
 import './task.scss';
 import edit from '../../assets/img/int.svg';
 import axios from 'axios';
+import AddTasksForm from './AddTaskForm';
+
 function Tasks({list,changeTitle}) {
    const changeTitletask =()=>{
        let newName = window.prompt('Изменить название категории',list.name);
@@ -15,10 +17,24 @@ function Tasks({list,changeTitle}) {
         })
       }
    }
+   const addTasks = (value) =>{
+    axios.post('http://localhost:3001/tasks/',
+        {
+            
+            listId: list.id,
+            text: value,
+            completed: false
+          }
+    )
+    
+    
+    
+   }
     return (
         <div className='task'>
-            <h2 className='task__title'>
+            <h2 className='task__title' style={{color:list.color.hex}}>
                {list.name}
+              
                 <img onClick={changeTitletask} src={edit} alt="edit"/>
             </h2>
 
@@ -35,11 +51,16 @@ function Tasks({list,changeTitle}) {
                         </label>
                         <p>{item.text}</p>
                     </div>
-                )
-                    
+                ) 
                 )}
                
             </div>
+            <AddTasksForm
+               addTasks = {
+                addTasks
+               }
+            
+            />
         </div>
     )
 }

@@ -81,6 +81,9 @@ function App() {
 							}}
 							isRemove
 							onRemovable={onRemovable}
+							task = {
+								task
+							}
 						/>}
 					</div>
 
