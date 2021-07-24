@@ -34,11 +34,6 @@
       "name": "Курс по ReactJS ToDo",
       "colorId": 7,
       "id": 7
-    },
-    {
-      "name": "sdsd",
-      "colorId": 1,
-      "id": 8
     }
   ],
   "tasks": [
@@ -52,7 +47,7 @@
       "id": 2,
       "listId": 2,
       "text": "Изучить паттерны проектирования",
-      "completed": false
+      "completed": true
     },
     {
       "id": 3,
@@ -75,25 +70,25 @@
     {
       "listId": 1,
       "text": "test",
-      "completed": false,
+      "completed": true,
       "id": 6
     },
     {
       "listId": 1,
       "text": "qweqwe",
-      "completed": false,
+      "completed": true,
       "id": 7
     },
     {
       "listId": 1,
       "text": "qweqwe",
-      "completed": true,
+      "completed": false,
       "id": 8
     },
     {
       "listId": 1,
       "text": "123",
-      "completed": false,
+      "completed": true,
       "id": 9
     },
     {
@@ -105,7 +100,7 @@
     {
       "listId": 2,
       "text": "222",
-      "completed": true,
+      "completed": false,
       "id": 12
     },
     {
@@ -131,6 +126,12 @@
       "text": "Прочесть \"Идиот\"",
       "completed": false,
       "id": 18
+    },
+    {
+      "listId": 6,
+      "text": "",
+      "completed": false,
+      "id": 20
     }
   ],
   "colors": [
