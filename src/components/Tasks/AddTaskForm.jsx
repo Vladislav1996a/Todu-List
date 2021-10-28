@@ -6,8 +6,8 @@ function AddTasksForm({addTasks,list}) {
     const [inputValue, setInputValue] = useState('')
     const toggleForm = () => {
         setShowForm(!showForm)
+        setInputValue('')
     }
-
     
     return (
         <div className='add-task'>
@@ -38,7 +38,7 @@ function AddTasksForm({addTasks,list}) {
                 </div>) : (
                     <div className='add-task__form'>
                         <input value={inputValue} onChange={ e =>{setInputValue(e.target.value)}} className='add-task__input' type="text" />
-                        <div onClick={()=>addTasks(inputValue,list.id)} className="add-task__button">Добавить задачу</div>
+                        <div onClick={()=>addTasks(inputValue,list.id,setInputValue)} className="add-task__button">Добавить задачу</div>
                         <div onClick={toggleForm} className="add-task__button add-task__button--cancel">Отмена</div>
                     </div>
                 )

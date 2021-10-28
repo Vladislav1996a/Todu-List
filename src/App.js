@@ -49,25 +49,30 @@ function App() {
 		
 	}
 
-	const addTasks = (value,id) =>{
+	const addTasks = (value,id,setInputValue) =>{
 		let obj = {
-				
 			listId: id,
 			text: value,
-			completed: false
-		  }
-		axios.post('http://localhost:3001/tasks/',obj)
-		const newList = list.map(item =>{
-			if(item.id === id){
-				item.tasks = [...item.tasks,obj]
-				
-			}
-			return item;
+			completed: false,
+		}
+		axios.post('http://localhost:3001/tasks/',obj).then(({data}) => {
+			const newList = list.map(item =>{
+				if(item.id === id){
+					item.tasks = [...item.tasks,data]
+				}
+				return item;
+			})
+			addList(newList)
+			setInputValue('')
 		})
-		addList(newList)
 		
-	   }
+		
+	}
+	
 
+   
+
+	
 	return (
 		<div className="block">
 			<div className="block__wrap">
@@ -86,10 +91,11 @@ function App() {
 									</svg>
 								),
 								name:'Все задачи',
-								id:0
+								id:0,
+								
 							}
 						]}
-						 />
+					/>
 
 					<div className="list__item--top">
 						{list &&  <List
@@ -124,6 +130,7 @@ function App() {
 						addTasks = {
 							addTasks
 						}
+						
 					/>}
 				</div>
 			</div>
